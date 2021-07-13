@@ -3,7 +3,7 @@ import { Form, Button, Container, Card } from "react-bootstrap";
 import axios from 'axios';
 import { Config } from '../../Config'
 import AuthContext from '../../Context/AuthContext'
-
+import makeToast from '../Functions/Toast'
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -16,6 +16,7 @@ function Login() {
                 email,
                 password
             });
+            if (data.perfil.rol !== "admin") return makeToast(6000, 'error', "Aplicacion solo disponible para Administradores!")
             setAccessToken(data.accessToken);
             setRefreshToken(data.refreshToken);
             setATExpire(data.ATExpiresIn);
