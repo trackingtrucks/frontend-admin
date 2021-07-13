@@ -1,0 +1,15 @@
+.btn-outline-primary:hover {
+    color: #830000!important;
+    background-color: #fff!important;
+    border-color: #830000!important;
+}
+
+.btn-outline-primary {
+    color: #fff!important;
+    background-color: #830000!important;
+    border-color: #830000!important;
+}
+
+.btn-check:focus+.btn-outline-primary, .btn-outline-primary:focus{
+    box-shadow: 0 0 0 0.20rem rgb(13 110 253 / 30%)!important;
+}
