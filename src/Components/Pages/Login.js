@@ -18,6 +18,7 @@ function Login() {
             setDisabled(false);
         } catch (error) {
             setDisabled(false);
+            makeToast(6000, 'error', error?.response?.data?.message || error.message)
             console.error(error?.response?.data?.message || error.message);
         }
 
