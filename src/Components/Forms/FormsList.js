@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-// import makeToast from '../Functions/Toast'
+import makeToast from '../Functions/Toast'
 import { Button, Modal, Form, Row, Col } from 'react-bootstrap'
 function FormsList({ form, accessToken, api, getForms }) {
     const [show, setShow] = useState(false);
@@ -18,6 +18,7 @@ function FormsList({ form, accessToken, api, getForms }) {
             handleClose();
         } catch (error) {
             setDisabled(false)
+            makeToast(6000, "error", error.response.data.message || error.message)
             console.log(error.response.data.message || error.message);
         }
     }
@@ -30,6 +31,7 @@ function FormsList({ form, accessToken, api, getForms }) {
             handleClose();
         } catch (error) {
             setDisabled(false)
+            makeToast(6000, "error", error.response.data.message || error.message)
             console.log(error.response.data.message || error.message);
         }
     }
