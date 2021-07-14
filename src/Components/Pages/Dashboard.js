@@ -4,7 +4,7 @@ import Navbar from '../Navbar';
 import * as Api from '../../Api/index';
 import FormList from '../Forms/FormsList';
 
-import { Accordion } from 'react-bootstrap';
+// import { Accordion } from 'react-bootstrap';
 
 function Dashboard() {
 
@@ -12,7 +12,6 @@ function Dashboard() {
   const [Forms, setForms] = useState([]);
   const getForms = async () => {
     const { data } = await Api.getForms({ accessToken: get('at') })
-    console.log(data.forms);
     setForms(data.forms);
 
   }
@@ -21,13 +20,12 @@ function Dashboard() {
     getForms();
     // eslint-disable-next-line
   }, []);
-  console.log(Forms);
   return (
     <>
       <Navbar />
       {/* <Accordion> */}
         {Forms.length > 0 && Forms.map((form) => (
-          <FormList form={form} key={form._id} />)
+          <FormList form={form} key={form._id} api={Api} accessToken={get('at')} getForms={getForms}/>)
         )}
       {/* </Accordion> */}
     </>
