@@ -11,8 +11,6 @@ function AuthContextProvider(props) {
     const [RTExpire, setRTExpire] = useState(parseInt(localStorage.getItem('rtExpires'), 10) || null)
 
     async function saveLocalStorage(){
-        console.log("RT: " + refreshToken);
-        console.log("EXP: " + RTExpire);
         localStorage.setItem('refreshToken', refreshToken);
         localStorage.setItem('rtExpires', parseInt(RTExpire, 10));
     }
@@ -22,8 +20,6 @@ function AuthContextProvider(props) {
     }
 
     function set({accessToken, refreshToken, ATExpire, RTExpire, LoggedIn}){
-        console.log("RT: " + refreshToken);
-        console.log("EXP: " + RTExpire);
         if (accessToken) {setAccessToken(accessToken)}
         if (refreshToken) {setRefreshToken(refreshToken)}
         if (ATExpire) {setATExpire(ATExpire)}
@@ -69,7 +65,6 @@ function AuthContextProvider(props) {
         const falta = ATExpire - now;
         if (falta < 0) return;
         setTimeout(() => {
-            console.info("Pidiendo nuevo AT");
             getAccessToken();
         }, falta - 15000);
         // eslint-disable-next-line

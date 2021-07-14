@@ -76,3 +76,32 @@ export const agregarAdmin = async ({ email, accessToken }) => {
     makeToast(5000, "success", response.data.message)
     return response;
 }
+
+export const getTokens = async ({ accessToken }) => {
+    const response = await API.get(`/admin/codigos/admin`, {
+        headers: {
+            "x-access-token": accessToken
+        }
+    })
+    return response;
+}
+export const getAdmins = async ({ accessToken }) => {
+    const response = await API.get(`/admin/cuentas/admins`, {
+        headers: {
+            "x-access-token": accessToken
+        }
+    })
+    return response;
+}
+
+export const eliminarToken = async ({ accessToken, id }) => {
+    const response = await API.delete(`/admin/codigo`, {
+        headers: {
+            "x-access-token": accessToken,
+        },
+        data: {
+            id: id
+        }
+    });
+    return response;
+}

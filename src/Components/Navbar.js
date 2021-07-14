@@ -36,12 +36,12 @@ function NavbarComponent() {
 
     return (
         <>
-            <Navbar bg="light" variant="light" expand="lg" className="p-3 mb-5">
+            <Navbar bg="light" variant="light" expand="lg" className="p-3">
                 <Navbar.Brand href="/">Tracking Trucks</Navbar.Brand>
                 <Nav className="mr-auto">
-                    <Nav.Link href="#home">Home</Nav.Link>
+                    {/* <Nav.Link href="#home">Home</Nav.Link>
                     <Nav.Link href="#features">Features</Nav.Link>
-                    <Nav.Link href="#pricing">Pricing</Nav.Link>
+                    <Nav.Link href="#pricing">Pricing</Nav.Link> */}
                 </Nav>
                 <Nav>
                     <Button variant="outline-primary" style={{ marginRight: '10px', marginBottom: '5px' }} onClick={() => cerrarSesion()}>Cerrar sesión</Button>
