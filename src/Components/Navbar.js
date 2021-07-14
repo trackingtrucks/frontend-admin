@@ -5,7 +5,7 @@ import * as Api from '../Api/index'
 function NavbarComponent() {
     const { get, clearLocalStorage } = useContext(AuthContext);
     const cerrarSesion = async() => {
-        await Api.cerrarSesion({get})
+        await Api.cerrarSesion({accessToken: get('at'), refreshToken: get('rt')})
         clearLocalStorage();
         window.location.reload();
     }

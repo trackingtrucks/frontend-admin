@@ -19,20 +19,20 @@ export const login = async ({ email, password, set }) => {
     return response;
 }
 
-export const getForms = async ({get}) => {
+export const getForms = async ({accessToken}) => {
     const response = await API.get(`/admin/formulario/all`, {
         headers: {
-            "x-access-token": get("at")
+            "x-access-token": accessToken
         }
     })
     return response;
 }
 
-export const cerrarSesion = async ({get}) => {
+export const cerrarSesion = async ({accessToken, refreshToken}) => {
     await API.delete(`/auth/token`, {
         headers: {
-            "x-refresh-token": get("rt"),
-            "x-access-token": get("at")
+            "x-refresh-token": refreshToken,
+            "x-access-token": accessToken
         }
     })
 }
