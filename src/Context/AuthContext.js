@@ -19,6 +19,23 @@ function AuthContextProvider(props) {
         localStorage.clear();
     }
 
+    function set({accessToken, refreshToken, ATExpire, RTExpire, LoggedIn}){
+        if (accessToken) {setAccessToken(accessToken)}
+        if (refreshToken) {setRefreshToken(refreshToken)}
+        if (ATExpire) {setATExpire(ATExpire)}
+        if (RTExpire) {setRTExpire(RTExpire)}
+        if (LoggedIn) {setLoggedIn(LoggedIn)}
+    }
+    function get(string){
+        switch (string) {
+            case "at":
+                return(accessToken)
+            case "rt":
+                return(refreshToken)            
+            default:
+                return "Que carajeanos"
+        }
+    }
     async function getAccessToken() {
         try {
             if (refreshToken) {
@@ -56,7 +73,7 @@ function AuthContextProvider(props) {
         // eslint-disable-next-line
     }, []);
 
-    return <AuthContext.Provider value={{ loggedIn, setLoggedIn, accessToken, refreshToken, setAccessToken, setRefreshToken, saveLocalStorage, clearLocalStorage, setRTExpire, setATExpire}}>
+    return <AuthContext.Provider value={{ loggedIn, setLoggedIn, accessToken, refreshToken, setAccessToken, setRefreshToken, saveLocalStorage, clearLocalStorage, setRTExpire, setATExpire, set, get}}>
         {props.children}
     </AuthContext.Provider>
 }

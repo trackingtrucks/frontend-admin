@@ -1,18 +1,11 @@
 import React, {useContext} from 'react'
 import { Nav, Navbar, Button } from 'react-bootstrap'
-import axios from 'axios';
 import AuthContext from '../Context/AuthContext';
-import {Config} from '../Config';
-
+import * as Api from '../Api/index'
 function NavbarComponent() {
-    const { accessToken, refreshToken, clearLocalStorage } = useContext(AuthContext);
+    const { get, clearLocalStorage } = useContext(AuthContext);
     const cerrarSesion = async() => {
-        await axios.delete(Config.API_URL + '/auth/token', {
-            headers: {
-                "x-refresh-token": refreshToken,
-                "x-access-token": accessToken
-            }
-        })
+        await Api.cerrarSesion({get})
         clearLocalStorage();
         window.location.reload();
     }

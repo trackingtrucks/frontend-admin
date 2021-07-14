@@ -1,27 +1,18 @@
 import React, { useContext, useState } from 'react';
 import { Form, Button, Container, Card } from "react-bootstrap";
-import axios from 'axios';
-import { Config } from '../../Config'
 import AuthContext from '../../Context/AuthContext'
 import makeToast from '../Functions/Toast'
+import * as api from '../../Api/index'
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const {setAccessToken, setRefreshToken, setLoggedIn, setATExpire, setRTExpire} = useContext(AuthContext);
+    const {set} = useContext(AuthContext);
 
     async function submit(e) {
         e.preventDefault();
         try {
-            const {data} = await axios.post(Config.API_URL + '/auth/login', {
-                email,
-                password
-            });
+            const {data} = await api.login({email, password, set})
             if (data.perfil.rol !== "admin") return makeToast(6000, 'error', "Aplicacion solo disponible para Administradores!")
-            setAccessToken(data.accessToken);
-            setRefreshToken(data.refreshToken);
-            setATExpire(data.ATExpiresIn);
-            setRTExpire(data.RTExpiresIn);
-            setLoggedIn(true);
         } catch (error) {
             console.error(error?.response?.data?.message || error.message);
         }
