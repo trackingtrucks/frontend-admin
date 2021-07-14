@@ -13,7 +13,6 @@ function Dashboard() {
   const getForms = async () => {
     const { data } = await Api.getForms({ accessToken: get('at') })
     setForms(data.forms);
-
   }
   useEffect(() => {
     saveLocalStorage();

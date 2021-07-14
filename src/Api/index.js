@@ -62,3 +62,17 @@ export const eliminarFormulario = async ({ id, accessToken }) => {
     makeToast(5000, "success", response.data.message)
     return response;
 }
+export const agregarAdmin = async ({ email, accessToken }) => {
+    // return console.log(companyId, id, accessToken)
+    console.log(email);
+    const response = await API.post('/admin/codigo', {
+        email: email
+    }, {
+        headers: {
+            "x-access-token": accessToken,
+            "Content-Type": "application/json"
+        }
+    })
+    makeToast(5000, "success", response.data.message)
+    return response;
+}
