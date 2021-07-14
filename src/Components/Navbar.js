@@ -36,7 +36,7 @@ function NavbarComponent() {
 
     return (
         <>
-            <Navbar bg="light" variant="light" expand="lg" className="p-3">
+            <Navbar bg="light" variant="light" expand="lg" className="p-3 mb-5">
                 <Navbar.Brand href="/">Tracking Trucks</Navbar.Brand>
                 <Nav className="mr-auto">
                     <Nav.Link href="#home">Home</Nav.Link>
@@ -44,8 +44,8 @@ function NavbarComponent() {
                     <Nav.Link href="#pricing">Pricing</Nav.Link>
                 </Nav>
                 <Nav>
-                    <Button variant="outline-primary" style={{ marginRight: '10px' }} onClick={() => cerrarSesion()}>Cerrar sesión</Button>
-                    <Button variant="outline-primary" style={{}} onClick={() => setShowRegistrar(true)}>Añadir Admin</Button>
+                    <Button variant="outline-primary" style={{ marginRight: '10px', marginBottom: '5px' }} onClick={() => cerrarSesion()}>Cerrar sesión</Button>
+                    <Button variant="outline-primary" style={{ marginBottom: '5px' }} onClick={() => setShowRegistrar(true)}>Añadir Admin</Button>
                 </Nav>
             </Navbar>
             <Modal show={showRegistrar} onHide={hideRegistrar}>

@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
 import makeToast from '../Functions/Toast'
-import { Button, Modal, Form, Row, Col } from 'react-bootstrap'
+import { Button, Modal, Form, Row, Col, Card } from 'react-bootstrap';
+import moment from 'moment';
+import 'moment/locale/es'
 function FormsList({ form, accessToken, api, getForms }) {
     const [show, setShow] = useState(false);
+    const [showBorrar, setShowBorrar] = useState(false);
     const [disabled, setDisabled] = useState(false);
     const [companyId, setCompanyId] = useState('');
 
-    const handleClose = () => { setShow(false); }
+    const handleClose = () => { setShow(false); setShowBorrar(false); }
     const handleShow = () => { setShow(true); }
     const submit = async (e) => {
         e.preventDefault();
@@ -25,7 +28,7 @@ function FormsList({ form, accessToken, api, getForms }) {
     const borrar = async () => {
         setDisabled(true);
         try {
-            await api.eliminarFormulario({id: form._id, accessToken});
+            await api.eliminarFormulario({ id: form._id, accessToken });
             await getForms();
             setDisabled(false);
             handleClose();
@@ -35,13 +38,34 @@ function FormsList({ form, accessToken, api, getForms }) {
             console.log(error.response.data.message || error.message);
         }
     }
+    const confirmBorrar = () => {
+        setShowBorrar(true);
+    }
     return (
         <div>
-            <p>{form._id}</p>
-            <p>{form.email}</p>
-            <p>{form.nombreEmpresa}</p>
-            <Button variant="primary" onClick={handleShow}>Aceptar</Button>
-            <hr />
+            <Col>
+                <Card>
+                    <Card.Body>
+                        <Card.Title>{form.nombreEmpresa}</Card.Title>
+                        <Card.Text>
+                            {form.descripcionUso}
+                        </Card.Text>
+                    </Card.Body>
+                    <Card.Footer>
+                        <div>
+                            <small className="text-muted">Enviado {moment(form.enviado).fromNow()}</small>
+                        </div>
+                        <div>
+                            <small className="text-muted">Enviado por: {form.email}</small>
+                        </div>
+                        <div>
+                            <Button variant="primary" style={{ marginRight: '15px', marginTop: '5px', marginBottom: '5px' }} onClick={handleShow}>Aceptar</Button>
+                            <Button variant="danger" style={{ marginRight: '15px', marginTop: '5px', marginBottom: '5px' }} onClick={confirmBorrar}>Eliminar</Button>
+                        </div>
+                    </Card.Footer>
+                </Card>
+            </Col>
+
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Aceptar formulario de {form.nombreEmpresa}?</Modal.Title>
@@ -61,11 +85,25 @@ function FormsList({ form, accessToken, api, getForms }) {
                     <Button variant="secondary" onClick={handleClose}>
                         Cerrar
                     </Button>
-                    <Button variant="danger" onClick={borrar} disabled={disabled}>
+                    <Button variant="danger" onClick={() => { handleClose(); confirmBorrar(); }} disabled={disabled}>
                         Eliminar
                     </Button>
                     <Button variant="primary" onClick={submit} disabled={disabled}>
                         Aceptar
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+            <Modal show={showBorrar} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Eliminar formulario de {form.nombreEmpresa}?</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Esta accion es irreversible y la persona deberá contactarnos devuelta!</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        No
+                    </Button>
+                    <Button variant="danger" onClick={borrar}>
+                        Si
                     </Button>
                 </Modal.Footer>
             </Modal>

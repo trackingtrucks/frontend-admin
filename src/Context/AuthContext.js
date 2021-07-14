@@ -11,6 +11,8 @@ function AuthContextProvider(props) {
     const [RTExpire, setRTExpire] = useState(parseInt(localStorage.getItem('rtExpires'), 10) || null)
 
     async function saveLocalStorage(){
+        console.log("RT: " + refreshToken);
+        console.log("EXP: " + RTExpire);
         localStorage.setItem('refreshToken', refreshToken);
         localStorage.setItem('rtExpires', parseInt(RTExpire, 10));
     }
@@ -20,6 +22,8 @@ function AuthContextProvider(props) {
     }
 
     function set({accessToken, refreshToken, ATExpire, RTExpire, LoggedIn}){
+        console.log("RT: " + refreshToken);
+        console.log("EXP: " + RTExpire);
         if (accessToken) {setAccessToken(accessToken)}
         if (refreshToken) {setRefreshToken(refreshToken)}
         if (ATExpire) {setATExpire(ATExpire)}
@@ -48,6 +52,9 @@ function AuthContextProvider(props) {
                 setATExpire(data.ATExpiresIn)
                 setLoggedIn(true);
             } else {
+                if (localStorage.getItem('refreshToken')){
+                    return;
+                }
                 setLoggedIn(false);
                 clearLocalStorage();
             }
@@ -73,7 +80,7 @@ function AuthContextProvider(props) {
         // eslint-disable-next-line
     }, []);
 
-    return <AuthContext.Provider value={{ loggedIn, setLoggedIn, accessToken, refreshToken, setAccessToken, setRefreshToken, saveLocalStorage, clearLocalStorage, setRTExpire, setATExpire, set, get}}>
+    return <AuthContext.Provider value={{ loggedIn, setLoggedIn, accessToken, refreshToken, setAccessToken, setRefreshToken, saveLocalStorage, clearLocalStorage, setRTExpire, setATExpire, set, get, getAccessToken}}>
         {props.children}
     </AuthContext.Provider>
 }

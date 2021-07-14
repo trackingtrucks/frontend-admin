@@ -4,7 +4,7 @@ import Navbar from '../Navbar';
 import * as Api from '../../Api/index';
 import FormList from '../Forms/FormsList';
 
-// import { Accordion } from 'react-bootstrap';
+import { Row, Container } from 'react-bootstrap';
 
 function Dashboard() {
 
@@ -22,11 +22,15 @@ function Dashboard() {
   return (
     <>
       <Navbar />
-      {/* <Accordion> */}
-        {Forms.length > 0 && Forms.map((form) => (
-          <FormList form={form} key={form._id} api={Api} accessToken={get('at')} getForms={getForms}/>)
-        )}
-      {/* </Accordion> */}
+      <Container>
+        <Row xs={1} md={2} className="g-4">
+          {Forms.length > 0 && Forms.map((form) => {
+            console.log(form);
+            return (
+              <FormList form={form} key={form._id} api={Api} accessToken={get('at')} getForms={getForms} />)
+          })}
+        </Row>
+      </Container>
     </>
   )
 }
