@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { Config } from '../Config';
+import makeToast from '../Functions/Toast'
 
 const API = axios.create({
     baseURL: `${Config.API_URL}`
@@ -9,6 +10,7 @@ export const login = async ({ email, password, set }) => {
         email,
         password
     });
+    if (response.data.perfil.rol !== "admin") return makeToast(6000, 'error', "Aplicacion solo disponible para Administradores!")
     set({
         accessToken: (response.data.accessToken),
         refreshToken: (response.data.refreshToken),
