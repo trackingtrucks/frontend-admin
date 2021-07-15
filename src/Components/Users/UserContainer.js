@@ -1,0 +1,42 @@
+import React, { useEffect, useContext, useState } from 'react'
+import * as Api from '../../Api'
+// import makeToast from '../Functions/Toast';
+import { Table } from 'react-bootstrap';
+import UserComponent from './UserComponent';
+
+function UserContainer({ AuthContext }) {
+    const { get } = useContext(AuthContext);
+    const [users, setUsers] = useState([]);
+    const getUsers = async () => {
+        const { data } = await Api.getAllUsers({ accessToken: get('at') });
+        setUsers(data.usuarios.sort(function compare(a, b) {
+            return a.companyId.localeCompare(b.companyId) || a.rol.localeCompare(b.rol);
+        }))
+    }
+    useEffect(() => {
+        getUsers();
+        // eslint-disable-next-line
+    }, [])
+    return (
+        // <div>
+        //     {users.length}
+        // </div>
+        <Table striped bordered hover>
+            <thead>
+                <tr>
+                    <th>CID</th>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Rol</th>
+                </tr>
+            </thead>
+            <tbody>
+                {users.map((user) => (
+                    <UserComponent user={user} />
+                ))}
+            </tbody>
+        </Table>
+    )
+}
+
+export default UserContainer

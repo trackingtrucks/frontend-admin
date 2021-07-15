@@ -40,7 +40,6 @@ export const cerrarSesion = async ({ accessToken, refreshToken }) => {
 }
 
 export const aceptarFormulario = async ({ companyId, id, accessToken }) => {
-    // return console.log(companyId, id, accessToken)
     const response = await API.post(`/admin/formulario/aceptar`, {
         id,
         companyId
@@ -63,8 +62,6 @@ export const eliminarFormulario = async ({ id, accessToken }) => {
     return response;
 }
 export const agregarAdmin = async ({ email, accessToken }) => {
-    // return console.log(companyId, id, accessToken)
-    console.log(email);
     const response = await API.post('/admin/codigo', {
         email: email
     }, {
@@ -103,5 +100,25 @@ export const eliminarToken = async ({ accessToken, id }) => {
             id: id
         }
     });
+    return response;
+}
+export const eliminarAdmin = async ({ accessToken, id }) => {
+    const response = await API.delete(`/admin/cuenta`, {
+        headers: {
+            "x-access-token": accessToken,
+        },
+        data: {
+            id: id
+        }
+    });
+    return response;
+}
+
+export const getAllUsers = async ({ accessToken }) => {
+    const response = await API.get(`/admin/cuentas`, {
+        headers: {
+            "x-access-token": accessToken
+        }
+    })
     return response;
 }

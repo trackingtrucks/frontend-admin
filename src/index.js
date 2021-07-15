@@ -6,10 +6,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './Styles/index.css'
 import './Styles/login.css'
 ReactDOM.render(
-  <React.StrictMode>
     <AuthContextProvider>
       <Router />
-    </AuthContextProvider>
-  </React.StrictMode>,
+    </AuthContextProvider>,
   document.getElementById('root')
 );

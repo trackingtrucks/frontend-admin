@@ -1,12 +1,7 @@
-import React, { useEffect } from 'react'
-import { Card, Button, Col } from 'react-bootstrap'
+import React from 'react'
+import { Card, Col } from 'react-bootstrap'
 import moment from 'moment'
-function UserCard({ user, AuthContext, getUsers }) {
-
-    useEffect(() => {
-        console.log(user);
-    }, [user])
-
+function UserCard({ user }) {
     return (
         <Col style={{ marginBottom: '12px', marginTop: '12px' }}>
             <Card>

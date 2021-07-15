@@ -3,6 +3,7 @@ import * as Api from '../../Api';
 import TokenCard from './TokenCard';
 import UserCard from './UserCard';
 import { Row } from 'react-bootstrap';
+import UserDelete from './UserDelete';
 
 function AdminContainer({ AuthContext }) {
     const { get } = useContext(AuthContext);
@@ -41,6 +42,10 @@ function AdminContainer({ AuthContext }) {
                     ))}
                 </Row>
             </div>}
+            <hr />
+            <div id="delete-user">
+                <UserDelete AuthContext={AuthContext} getUsers={getUsers} users={users}/>
+            </div>
         </div>
     )
 }

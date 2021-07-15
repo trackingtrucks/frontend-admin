@@ -22,7 +22,7 @@ function FormsList({ form, accessToken, api, getForms }) {
         } catch (error) {
             setDisabled(false)
             makeToast(6000, "error", error.response.data.message || error.message)
-            console.log(error.response.data.message || error.message);
+            console.error(error.response.data.message || error.message);
         }
     }
     const borrar = async () => {
@@ -35,7 +35,7 @@ function FormsList({ form, accessToken, api, getForms }) {
         } catch (error) {
             setDisabled(false)
             makeToast(6000, "error", error.response.data.message || error.message)
-            console.log(error.response.data.message || error.message);
+            console.error(error.response.data.message || error.message);
         }
     }
     const confirmBorrar = () => {

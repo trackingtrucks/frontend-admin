@@ -15,14 +15,13 @@ function NavbarComponent() {
     }
     const enviarAdmin = async (e) => {
         e.preventDefault();
-        if (disabled) {console.log("RIP"); return};
-        if (email === "") {console.log("WTF"); return makeToast(5000, "error", "Se debe especificar un email!");}
+        if (disabled) { return };
+        if (email === "") return makeToast(5000, "error", "Se debe especificar un email!");
         try {
             setDisabled(true);
-            const response = await Api.agregarAdmin({email, accessToken: get('at')});
-            console.log(response.data);
+            await Api.agregarAdmin({ email, accessToken: get('at') });
             setDisabled(false);
-                hideRegistrar();
+            hideRegistrar();
         } catch (error) {
             setDisabled(false);
             makeToast(6000, "error", error.response.data.message || error.message)
