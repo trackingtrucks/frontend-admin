@@ -122,3 +122,12 @@ export const getAllUsers = async ({ accessToken }) => {
     })
     return response;
 }
+
+export const restablecerContraseña = async ({email}) => {
+    return email;
+    // return await API.get(`/user/restablecer`, {
+    //     data:{
+    //         email
+    //     }
+    // })
+}

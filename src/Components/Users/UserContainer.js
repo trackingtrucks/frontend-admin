@@ -18,9 +18,6 @@ function UserContainer({ AuthContext }) {
         // eslint-disable-next-line
     }, [])
     return (
-        // <div>
-        //     {users.length}
-        // </div>
         <Table striped bordered hover>
             <thead>
                 <tr>
@@ -28,6 +25,7 @@ function UserContainer({ AuthContext }) {
                     <th>Nombre</th>
                     <th>Email</th>
                     <th>Rol</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>

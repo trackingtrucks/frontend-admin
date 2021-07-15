@@ -13,3 +13,7 @@
 .btn-check:focus+.btn-outline-primary, .btn-outline-primary:focus{
     box-shadow: 0 0 0 0.20rem rgb(13 110 253 / 30%)!important;
 }
+
+.user-actions .dropdown{
+    text-align: right;
+}
