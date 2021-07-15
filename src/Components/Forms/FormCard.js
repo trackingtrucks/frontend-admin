@@ -67,7 +67,7 @@ function FormsList({ form, accessToken, api, getForms }) {
             </Col>
 
             <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
+                <Modal.Header closeButton closeLabel="">
                     <Modal.Title>Aceptar formulario de {form.nombreEmpresa}?</Modal.Title>
                 </Modal.Header>
                 {/* <Modal.Body>Ingresa un companyId para esta empresa</Modal.Body> */}
@@ -94,7 +94,7 @@ function FormsList({ form, accessToken, api, getForms }) {
                 </Modal.Footer>
             </Modal>
             <Modal show={showBorrar} onHide={handleClose}>
-                <Modal.Header closeButton>
+                <Modal.Header closeButton closeLabel="">
                     <Modal.Title>Eliminar formulario de {form.nombreEmpresa}?</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>Esta accion es irreversible y la persona deberá contactarnos devuelta!</Modal.Body>

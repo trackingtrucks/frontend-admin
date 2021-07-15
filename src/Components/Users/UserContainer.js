@@ -10,7 +10,7 @@ function UserContainer({ AuthContext }) {
     const getUsers = async () => {
         const { data } = await Api.getAllUsers({ accessToken: get('at') });
         setUsers(data.usuarios.sort(function compare(a, b) {
-            return a.companyId.localeCompare(b.companyId) || a.rol.localeCompare(b.rol);
+            return a.companyId.localeCompare(b.companyId) || b.rol.localeCompare(a.rol) || a.nombre.localeCompare(b.nombre);
         }))
     }
     useEffect(() => {
@@ -32,7 +32,7 @@ function UserContainer({ AuthContext }) {
             </thead>
             <tbody>
                 {users.map((user) => (
-                    <UserComponent user={user} />
+                    <UserComponent user={user} key={user._id}/>
                 ))}
             </tbody>
         </Table>

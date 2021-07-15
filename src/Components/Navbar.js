@@ -1,8 +1,9 @@
 import React, { useContext, useState } from 'react'
 import { Nav, Navbar, Button, Form, Col, Row, Modal } from 'react-bootstrap'
 import AuthContext from '../Context/AuthContext';
-import makeToast from './Functions/Toast'
-import * as Api from '../Api/index'
+import makeToast from './Functions/Toast';
+import * as Api from '../Api/index';
+import '../Styles/navbar.css'
 function NavbarComponent() {
     const [showRegistrar, setShowRegistrar] = useState(false);
     const [disabled, setDisabled] = useState(false);
@@ -48,7 +49,7 @@ function NavbarComponent() {
                 </Nav>
             </Navbar>
             <Modal show={showRegistrar} onHide={hideRegistrar}>
-                <Modal.Header closeButton>
+                <Modal.Header closeButton closeLabel="">
                     <Modal.Title>Añadir administrador al sistema</Modal.Title>
                 </Modal.Header>
                 {/* <Modal.Body>Ingresa un companyId para esta empresa</Modal.Body> */}
