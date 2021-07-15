@@ -16,8 +16,8 @@ function UserComponent({ user }) {
             </OverlayTrigger>
         </span>
     ));
-    const restablecerContraseña = async () =>{
-        const res = await Api.restablecerContraseña({email: user.email});
+    const restablecerContraseña = async () => {
+        const res = await Api.restablecerContraseña({ email: user.email });
         console.log(res);
     }
 
