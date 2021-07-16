@@ -5,21 +5,24 @@ const AuthContext = createContext();
 
 function AuthContextProvider(props) {
     const [loggedIn, setLoggedIn] = useState(undefined);
-    const [refreshToken, setRefreshToken] = useState(localStorage.getItem('refreshToken') || '')
+    const [refreshToken, setRefreshToken] = useState(localStorage.getItem('refreshToken') || '');
     const [accessToken, setAccessToken] = useState('')
     const [ATExpire, setATExpire] = useState(null)
-    const [RTExpire, setRTExpire] = useState(parseInt(localStorage.getItem('rtExpires'), 10) || null)
+    const [RTExpire, setRTExpire] = useState(parseInt(localStorage.getItem('rtExpires'), 10) || null);
+    const [perfil, setPerfil] = useState(JSON.parse(localStorage.getItem('perfil')) || null);
 
     async function saveLocalStorage(){
         localStorage.setItem('refreshToken', refreshToken);
         localStorage.setItem('rtExpires', parseInt(RTExpire, 10));
+        localStorage.setItem('perfil', JSON.stringify(perfil));
     }
 
     async function clearLocalStorage(){
         localStorage.clear();
     }
 
-    function set({accessToken, refreshToken, ATExpire, RTExpire, LoggedIn}){
+    function set({accessToken, refreshToken, ATExpire, RTExpire, LoggedIn, profile}){
+        if (profile) {setPerfil(profile)}
         if (accessToken) {setAccessToken(accessToken)}
         if (refreshToken) {setRefreshToken(refreshToken)}
         if (ATExpire) {setATExpire(ATExpire)}
@@ -75,7 +78,7 @@ function AuthContextProvider(props) {
         // eslint-disable-next-line
     }, []);
 
-    return <AuthContext.Provider value={{ loggedIn, setLoggedIn, accessToken, refreshToken, setAccessToken, setRefreshToken, saveLocalStorage, clearLocalStorage, setRTExpire, setATExpire, set, get, getAccessToken}}>
+    return <AuthContext.Provider value={{ loggedIn, saveLocalStorage, clearLocalStorage, set, get, getAccessToken, perfil}}>
         {props.children}
     </AuthContext.Provider>
 }

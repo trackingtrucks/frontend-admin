@@ -12,6 +12,7 @@ export const login = async ({ email, password, set }) => {
     });
     if (response.data.perfil.rol !== "admin") return makeToast(6000, 'error', "Aplicacion solo disponible para Administradores!")
     set({
+        profile: (response.data.perfil),
         accessToken: (response.data.accessToken),
         refreshToken: (response.data.refreshToken),
         ATExpire: (response.data.ATExpiresIn),
@@ -124,10 +125,9 @@ export const getAllUsers = async ({ accessToken }) => {
 }
 
 export const restablecerContraseña = async ({email}) => {
-    return email;
-    // return await API.get(`/user/restablecer`, {
-    //     data:{
-    //         email
-    //     }
-    // })
+    console.log(email);
+    const response = await API.post(`/user/restablecer`, {
+        email
+    });
+    return response;
 }

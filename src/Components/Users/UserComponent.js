@@ -1,6 +1,7 @@
 import React, { } from 'react';
 import { Dropdown, Tooltip, OverlayTrigger } from 'react-bootstrap';
 import * as Api from '../../Api'
+import makeToast from '../Functions/Toast';
 function UserComponent({ user }) {
     const CustomToggle = React.forwardRef(({ onClick }, ref) => (
         <span ref={ref} onClick={(e) => { e.preventDefault(); onClick(e); }}>
@@ -17,8 +18,13 @@ function UserComponent({ user }) {
         </span>
     ));
     const restablecerContraseña = async () => {
-        const res = await Api.restablecerContraseña({ email: user.email });
-        console.log(res);
+        try {
+            const res = await Api.restablecerContraseña({ email: user.email });
+            console.log(res);
+            
+        } catch (error) {
+            makeToast(6000, "error", error.response.data.message || error.message)
+        }
     }
 
     return (

@@ -6,11 +6,12 @@ import Navbar from '../Navbar';
 
 import { Container, Tabs, Tab } from 'react-bootstrap';
 import UserContainer from '../Users/UserContainer';
+import SettingsContainers from '../Settings/SettingsContainer';
 
 function Dashboard() {
   const { saveLocalStorage } = useContext(AuthContext);
   // const [key, setKey] = useState('forms');
-  const [key, setKey] = useState('usuarios');
+  const [key, setKey] = useState('settings');
 
   useEffect(() => {
     saveLocalStorage();
@@ -36,7 +37,7 @@ function Dashboard() {
           </Tab>
           <Tab eventKey="settings" title="Configuracion">
             <div>
-              wa
+              <SettingsContainers AuthContext={AuthContext}/>
             </div>
           </Tab>
         </Tabs>

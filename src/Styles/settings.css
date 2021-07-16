@@ -1,0 +1,15 @@
+.settings-container {
+    position: relative;
+    padding: 1rem;
+    border: .2rem solid #ececec;
+    border-radius: 8px;
+    margin-right: 0;
+    margin-left: 0;
+    color: #212529;
+}
+
+.settings-item{
+    background-color: #efefef!important;
+    border-radius: 8px;
+    padding: 0.1rem; 
+}

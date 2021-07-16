@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { Nav, Navbar, Button, Form, Col, Row, Modal } from 'react-bootstrap'
+import { Nav, Navbar, Button, Form, Col, Row, Modal, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import AuthContext from '../Context/AuthContext';
 import makeToast from './Functions/Toast';
 import * as Api from '../Api/index';
@@ -8,7 +8,7 @@ function NavbarComponent() {
     const [showRegistrar, setShowRegistrar] = useState(false);
     const [disabled, setDisabled] = useState(false);
     const [email, setEmail] = useState('');
-    const { get, clearLocalStorage } = useContext(AuthContext);
+    const { get, clearLocalStorage, perfil } = useContext(AuthContext);
     const cerrarSesion = async () => {
         await Api.cerrarSesion({ accessToken: get('at'), refreshToken: get('rt') })
         clearLocalStorage();
@@ -43,10 +43,23 @@ function NavbarComponent() {
                     <Nav.Link href="#features">Features</Nav.Link>
                     <Nav.Link href="#pricing">Pricing</Nav.Link> */}
                 </Nav>
-                <Nav>
-                    <Button variant="outline-primary" style={{ marginRight: '10px', marginBottom: '5px' }} onClick={() => cerrarSesion()}>Cerrar sesión</Button>
-                    <Button variant="outline-primary" style={{ marginBottom: '5px' }} onClick={() => setShowRegistrar(true)}>Añadir Admin</Button>
-                </Nav>
+                <Navbar.Collapse className="justify-content-end">
+                    <Button variant="outline-primary" style={{ marginRigth: '10px', marginLeft: '10px', marginBottom: '5px' }} onClick={() => setShowRegistrar(true)}>Añadir Admin</Button>
+                    <Button variant="outline-primary" style={{ marginRigth: '10px', marginLeft: '10px', marginBottom: '5px' }} onClick={() => cerrarSesion()}>Cerrar sesión</Button>
+                    <Navbar.Text style={{ marginLeft: '10px', marginRight: '10px' }}>
+                        {perfil && <OverlayTrigger
+                            key={perfil._id}
+                            placement="bottom"
+                            overlay={
+                                <Tooltip id={`tooltip-${perfil._id}`}>
+                                    <strong>{perfil.email}</strong>
+                                </Tooltip>
+                            }
+                        >
+                            <strong>{perfil.nombre} {perfil?.apellido}</strong>
+                        </OverlayTrigger>}
+                    </Navbar.Text>
+                </Navbar.Collapse>
             </Navbar>
             <Modal show={showRegistrar} onHide={hideRegistrar}>
                 <Modal.Header closeButton closeLabel="">
