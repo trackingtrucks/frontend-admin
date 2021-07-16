@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
-import { Form, Row, Col, Button } from 'react-bootstrap'
+import { Form, Row, Col } from 'react-bootstrap'
 import '../../Styles/settings.css'
+import CerrarSesionAllDevices from './CerrarSesionAllDevices';
 function SettingsContainers({ AuthContext }) {
     const { perfil } = useContext(AuthContext);
     return (
@@ -14,8 +15,8 @@ function SettingsContainers({ AuthContext }) {
                 </Col>
             </Form.Group>
             <hr />
-            <Form.Group as={Row} className="settings-item-email" controlId="email">
-                <Button variant="danger">Cerrar sesión en todos los dispositivos</Button>
+            <Form.Group as={Row} className="settings-item-logout-all" controlId="logout-all">
+                <CerrarSesionAllDevices AuthContext={AuthContext}/>
             </Form.Group>
         </Form>
     )
