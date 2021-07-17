@@ -25,7 +25,7 @@ function SettingsCuenta({perfil}) {
                         </Button>
                     </InputGroup>
                 </Col>
-                <CambiarContraseña mostrar={modalPass} setMostrar={setModalPass}/>
+                <CambiarContraseña mostrar={modalPass} setMostrar={setModalPass} perfil={perfil}/>
             </Form.Group>
         </Form>
     )
