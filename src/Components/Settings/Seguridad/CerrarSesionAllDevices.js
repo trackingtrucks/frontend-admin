@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import { Button, Form, Row, Col, Modal } from 'react-bootstrap'
-import * as Api from '../../Api'
-import makeToast from '../Functions/Toast';
+import * as Api from '../../../Api'
+import makeToast from '../../Functions/Toast';
 function CerrarSesionAllDevices({ AuthContext }) {
     const { get, clearLocalStorage } = useContext(AuthContext)
     const [show, setShow] = useState(false)

@@ -1,24 +1,39 @@
 import React, { useContext } from 'react'
-import { Form, Row, Col } from 'react-bootstrap'
+import { Row, Col, Container, Tab, Nav, } from 'react-bootstrap'
 import '../../Styles/settings.css'
-import CerrarSesionAllDevices from './CerrarSesionAllDevices';
+import ConfigCuenta from './ConfigCuenta'
+import ConfigSeguridad from './ConfigSeguridad'
 function SettingsContainers({ AuthContext }) {
     const { perfil } = useContext(AuthContext);
     return (
-        <Form className="settings-container ">
-            <Form.Group as={Row} className="mb-3 settings-item-email" controlId="email">
-                <Form.Label column sm="2" style={{ verticalAlign: "middle" }}>
-                    Email
-                </Form.Label>
-                <Col sm="10" className="settings-item">
-                    <Form.Control plaintext readOnly defaultValue={perfil.email} />
-                </Col>
-            </Form.Group>
-            <hr />
-            <Form.Group as={Row} className="settings-item-logout-all" controlId="logout-all">
-                <CerrarSesionAllDevices AuthContext={AuthContext}/>
-            </Form.Group>
-        </Form>
+        <Container className="settings-container">
+
+            <Tab.Container id="left-tabs-example" defaultActiveKey="account">
+                <Row>
+                    <Col sm={3}>
+                        <Nav variant="pills" className="flex-column">
+                            <Nav.Item >
+                                <Nav.Link eventKey="account">Cuenta</Nav.Link>
+                            </Nav.Item>
+                            <Nav.Item>
+                                <Nav.Link eventKey="security">Seguridad</Nav.Link>
+                            </Nav.Item>
+                        </Nav>
+                    </Col>
+                    <Col sm={9}>
+                        <Tab.Content>
+                            <Tab.Pane eventKey="account">
+                                <ConfigCuenta perfil={perfil} AuthContext={AuthContext} />
+                            </Tab.Pane>
+                            <Tab.Pane eventKey="security">
+                                <ConfigSeguridad perfil={perfil} AuthContext={AuthContext}/>
+                            </Tab.Pane>
+                        </Tab.Content>
+                    </Col>
+                </Row>
+            </Tab.Container>
+        </Container>
+        // </Form>
     )
 }
 

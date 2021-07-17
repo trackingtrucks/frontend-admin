@@ -19,9 +19,7 @@ function UserComponent({ user }) {
     ));
     const restablecerContraseña = async () => {
         try {
-            const res = await Api.restablecerContraseña({ email: user.email });
-            console.log(res);
-            
+            await Api.restablecerContraseña({ email: user.email });            
         } catch (error) {
             makeToast(6000, "error", error.response.data.message || error.message)
         }
