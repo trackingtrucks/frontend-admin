@@ -10,7 +10,7 @@ export const login = async ({ email, password, set }) => {
         email,
         password
     });
-    if (response.data.perfil.rol !== "admin") return makeToast(6000, 'error', "Aplicacion solo disponible para Administradores!")
+    if (response.data.perfil.rol !== "admin"){cerrarSesion({accessToken: response.data.accessToken, refreshToken: response.data.refreshToken}); return makeToast(6000, 'error', "Aplicacion solo disponible para Administradores!")};
     set({
         profile: (response.data.perfil),
         accessToken: (response.data.accessToken),
