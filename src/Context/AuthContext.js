@@ -19,6 +19,14 @@ function AuthContextProvider(props) {
 
     async function clearLocalStorage(){
         localStorage.clear();
+        set({
+            accessToken: '',
+            LoggedIn: false,
+            refreshToken: '',
+            ATExpire: null,
+            RTExpire: null,
+            profile: null
+        })
     }
 
     function set({accessToken, refreshToken, ATExpire, RTExpire, LoggedIn, profile}){

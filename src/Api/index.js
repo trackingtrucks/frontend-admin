@@ -45,10 +45,10 @@ export const aceptarFormulario = async ({ companyId, id, accessToken }) => {
         id,
         companyId
     }, {
-            headers: {
-                "x-access-token": accessToken
-            }
-        })
+        headers: {
+            "x-access-token": accessToken
+        }
+    })
     makeToast(5000, "success", response.data.message)
     return response;
 }
@@ -66,11 +66,11 @@ export const agregarAdmin = async ({ email, accessToken }) => {
     const response = await API.post('/admin/codigo', {
         email: email
     }, {
-            headers: {
-                "x-access-token": accessToken,
-                "Content-Type": "application/json"
-            }
-        })
+        headers: {
+            "x-access-token": accessToken,
+            "Content-Type": "application/json"
+        }
+    })
     makeToast(5000, "success", response.data.message)
     return response;
 }
@@ -129,6 +129,17 @@ export const restablecerContraseña = async ({ email }) => {
     const response = await API.post(`/user/restablecer`, {
         email
     });
+    return response;
+}
+
+export const cambiarContraseña = async ({ accessToken, password, passwordActual }) => {
+    const response = await API.patch(`/user/cambiar/contrasena/logueado`, {
+        password, passwordActual
+    }, {
+        headers: {
+            'x-access-token': accessToken
+        }
+    })
     return response;
 }
 
