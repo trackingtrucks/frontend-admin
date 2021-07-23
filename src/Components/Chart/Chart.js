@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import CanvasJSReact from './canvasjs.react';
 
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
+
 var dataPoints = [];
 
 class Chart extends Component {
     async componentDidMount() {
         var chart = this.chart;
         await fetch('https://tracking-trucks.herokuapp.com/data/sample')
+        // await fetch('http://localhost:5000/data/sample')
             .then(function (response) {
                 return response.json();
             }).catch(() => {
@@ -292,22 +294,43 @@ class Chart extends Component {
             title: {
                 text: "Temperatura del cooler"
             },
+            axisX: {
+                valueFormatString: "HH:MM:ss",
+                crosshair: {
+                    enabled: true,
+                    snapToDataPoint: true
+                }
+            },
             axisY: {
-                title: "Temperatura del cooler",
+                // title: "Temperatura del cooler",
                 suffix: "°C"
             },
+            culture: "es",
             animationEnabled: true,
             zoomEnabled: true,
             data: [{
                 type: "line",
-                xValueFormatString: "DD MMM YYYY HH MM",
+                xValueFormatString: "[DD MMM] HH:MM:ss ",
                 yValueFormatString: "#°C",
+                toolTipContent: "{x} - {y}",
                 dataPoints: dataPoints
-            }]
+            }],
+            // rangeSelector: {
+            //     inputFields: {
+            //         startValue: 1626706523000,
+            //         endValue: 1626706792000,
+            //         valueFormatString: "###0"
+            //     }
+            // }
         }
+        const containerProps = {
+            width: "100%",
+            height: "450px",
+            margin: "auto"
+        };
         return (
             <div>
-                <CanvasJSChart options={options}
+                <CanvasJSChart containerProps={containerProps} options={options}
                     onRef={ref => this.chart = ref}
                 />
                 {/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
