@@ -1,305 +1,79 @@
 import React, { Component } from 'react';
 import CanvasJSReact from './canvasjs.react';
-
+import axios from 'axios';
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
-var dataPoints = [];
+export class Chart extends Component {
+    state = {
+        diasCount: 0,
+        diasArray: [],
+        dataPoints: [],
+        dataPointsFilter: [],
+        filtrado: true,
+        diaSeleccionado: "Todos"
+    }
+    getData = async () => {
+        const chart = this.chart;
+        // const { data } = await axios.get('http://localhost:5000/data/sample')
+        const { data } = await axios.get('https://tracking-trucks.herokuapp.com/data/sample')
+        const datos = data.coolant.chart;
+        var dataPoints = [];
 
-class Chart extends Component {
-    async componentDidMount() {
-        var chart = this.chart;
-        await fetch('https://tracking-trucks.herokuapp.com/data/sample')
-        // await fetch('http://localhost:5000/data/sample')
-            .then(function (response) {
-                return response.json();
-            }).catch(() => {
-                console.error("fail!");
-                const chartApi = [
-                    {
-                        "x": 1626706523000,
-                        "y": 0
-                    },
-                    {
-                        "x": 1626706530000,
-                        "y": 25
-                    },
-                    {
-                        "x": 1626706537000,
-                        "y": 61
-                    },
-                    {
-                        "x": 1626706544000,
-                        "y": 61
-                    },
-                    {
-                        "x": 1626706551000,
-                        "y": 62
-                    },
-                    {
-                        "x": 1626706558000,
-                        "y": 62
-                    },
-                    {
-                        "x": 1626706565000,
-                        "y": 63
-                    },
-                    {
-                        "x": 1626706571000,
-                        "y": 64
-                    },
-                    {
-                        "x": 1626706579000,
-                        "y": 64
-                    },
-                    {
-                        "x": 1626706586000,
-                        "y": 64
-                    },
-                    {
-                        "x": 1626706592000,
-                        "y": 65
-                    },
-                    {
-                        "x": 1626706599000,
-                        "y": 0
-                    },
-                    {
-                        "x": 1626706600000,
-                        "y": 66
-                    },
-                    {
-                        "x": 1626706606000,
-                        "y": 0
-                    },
-                    {
-                        "x": 1626706607000,
-                        "y": 66
-                    },
-                    {
-                        "x": 1626706613000,
-                        "y": 66
-                    },
-                    {
-                        "x": 1626706620000,
-                        "y": 68
-                    },
-                    {
-                        "x": 1626706627000,
-                        "y": 69
-                    },
-                    {
-                        "x": 1626706633000,
-                        "y": 69
-                    },
-                    {
-                        "x": 1626706640000,
-                        "y": 69
-                    },
-                    {
-                        "x": 1626706647000,
-                        "y": 70
-                    },
-                    {
-                        "x": 1626706653000,
-                        "y": 0
-                    },
-                    {
-                        "x": 1626706654000,
-                        "y": 70
-                    },
-                    {
-                        "x": 1626706660000,
-                        "y": 71
-                    },
-                    {
-                        "x": 1626706668000,
-                        "y": 71
-                    },
-                    {
-                        "x": 1626706674000,
-                        "y": 72
-                    },
-                    {
-                        "x": 1626706681000,
-                        "y": 72
-                    },
-                    {
-                        "x": 1626706688000,
-                        "y": 72
-                    },
-                    {
-                        "x": 1626706695000,
-                        "y": 73
-                    },
-                    {
-                        "x": 1626706702000,
-                        "y": 73
-                    },
-                    {
-                        "x": 1626706709000,
-                        "y": 74
-                    },
-                    {
-                        "x": 1626706716000,
-                        "y": 75
-                    },
-                    {
-                        "x": 1626706723000,
-                        "y": 75
-                    },
-                    {
-                        "x": 1626706730000,
-                        "y": 75
-                    },
-                    {
-                        "x": 1626706736000,
-                        "y": 75
-                    },
-                    {
-                        "x": 1626706743000,
-                        "y": 75
-                    },
-                    {
-                        "x": 1626706750000,
-                        "y": 75
-                    },
-                    {
-                        "x": 1626706756000,
-                        "y": 75
-                    },
-                    {
-                        "x": 1626706763000,
-                        "y": 77
-                    },
-                    {
-                        "x": 1626706770000,
-                        "y": 0
-                    },
-                    {
-                        "x": 1626706771000,
-                        "y": 78
-                    },
-                    {
-                        "x": 1626706777000,
-                        "y": 0
-                    },
-                    {
-                        "x": 1626706778000,
-                        "y": 78
-                    },
-                    {
-                        "x": 1626706784000,
-                        "y": 78
-                    },
-                    {
-                        "x": 1626706792000,
-                        "y": 78
-                    },
-                    {
-                        "x": 1626706799000,
-                        "y": 78
-                    },
-                    {
-                        "x": 1626706805000,
-                        "y": 78
-                    },
-                    {
-                        "x": 1626706812000,
-                        "y": 78
-                    },
-                    {
-                        "x": 1626706818000,
-                        "y": 78
-                    },
-                    {
-                        "x": 1626706825000,
-                        "y": 78
-                    },
-                    {
-                        "x": 1626706832000,
-                        "y": 79
-                    },
-                    {
-                        "x": 1626816952000,
-                        "y": 24
-                    },
-                    {
-                        "x": 1626816958000,
-                        "y": 26
-                    },
-                    {
-                        "x": 1626816965000,
-                        "y": 27
-                    },
-                    {
-                        "x": 1626816971000,
-                        "y": 28
-                    },
-                    {
-                        "x": 1626816977000,
-                        "y": 29
-                    },
-                    {
-                        "x": 1626816983000,
-                        "y": 30
-                    },
-                    {
-                        "x": 1626816990000,
-                        "y": 30
-                    },
-                    {
-                        "x": 1626816997000,
-                        "y": 31
-                    },
-                    {
-                        "x": 1626817003000,
-                        "y": 32
-                    },
-                    {
-                        "x": 1626817009000,
-                        "y": 33
-                    },
-                    {
-                        "x": 1626817015000,
-                        "y": 33
-                    }
-                ]
-                console.log(chartApi);
-                const datos = chartApi
-                console.log(chartApi.length);
-                for (var i = 0; i < chartApi.length; i++) {
-                    dataPoints.push({
-                        x: new Date(datos[i].x),
-                        y: datos[i].y
-                    });
-                }
-                chart.render();
-            })
-            .then(function (data) {
-                const datos = data.coolant.chart
-                console.log(data.coolant.chart.length);
-                for (var i = 0; i < data.coolant.chart.length; i++) {
-                    dataPoints.push({
-                        x: new Date(datos[i].x),
-                        y: datos[i].y
-                    });
-                }
-                chart.render();
+        for (var i = 0; i < datos.length; i++) {
+            const dia = Math.floor(datos[i].x / 86400000)
+            if (!this.state.diasArray.includes(dia)) {
+                this.setState({
+                    diasCount: this.state.diasCount + 1,
+                    diasArray: [...this.state.diasArray, dia]
+                })
+            }
+            dataPoints.push({
+                x: new Date(datos[i].x),
+                y: datos[i].y,
+                dia
             });
+        }
+        this.setState({
+            dataPoints: dataPoints,
+            dataPointsFilter: dataPoints
+        })
+        chart.render();
     }
 
+    componentDidMount = () => {
+        this.getData();
+    }
+    formatFecha = (timestamp) => {
+        let d = new Date(timestamp);
+        let ye = new Intl.DateTimeFormat('es-AR', { year: 'numeric' }).format(d)
+        let mo = new Intl.DateTimeFormat('es-AR', { month: 'long' }).format(d)
+        let da = new Intl.DateTimeFormat('es-AR', { day: '2-digit' }).format(d)
+        return { ye, mo, da }
+    }
+    filtrar = (dia) => {
+
+        const { ye, mo, da } = this.formatFecha(dia * 86400000 + 10800000);
+        this.setState({
+            dataPointsFilter: this.state.dataPoints.filter(point => point.dia === dia),
+            filtrado: !this.state.filtrado,
+            diaSeleccionado: `${da} de ${mo} del ${ye}`
+        })
+
+
+    }
     render() {
         const options = {
             theme: "light2",
             title: {
-                text: "Temperatura del cooler"
+                text: `Temperatura del cooler`
             },
             axisX: {
                 valueFormatString: "HH:MM:ss",
                 crosshair: {
                     enabled: true,
                     snapToDataPoint: true
-                }
+                },
+                title: `Dia seleccionado: ${this.state.diaSeleccionado}`
             },
             axisY: {
                 // title: "Temperatura del cooler",
@@ -313,15 +87,8 @@ class Chart extends Component {
                 xValueFormatString: "[DD MMM] HH:MM:ss ",
                 yValueFormatString: "#°C",
                 toolTipContent: "{x} - {y}",
-                dataPoints: dataPoints
+                dataPoints: this.state.dataPointsFilter
             }],
-            // rangeSelector: {
-            //     inputFields: {
-            //         startValue: 1626706523000,
-            //         endValue: 1626706792000,
-            //         valueFormatString: "###0"
-            //     }
-            // }
         }
         const containerProps = {
             width: "100%",
@@ -333,7 +100,17 @@ class Chart extends Component {
                 <CanvasJSChart containerProps={containerProps} options={options}
                     onRef={ref => this.chart = ref}
                 />
-                {/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
+                {this.state.diasArray.map((dia) => {
+                    const { ye, mo, da } = this.formatFecha(dia * 86400000 + 10800000);
+
+                    return (
+                        <div>
+                            <button onClick={() => { this.filtrar(dia) }}>Seleccionar {da} de {mo} del {ye}</button>
+                            <br />
+                            <br />
+                        </div>
+                    )
+                })}
             </div>
         );
     }
