@@ -10,7 +10,7 @@ export class Chart extends Component {
         dataPoints: [],
         dataPointsFilter: [],
         filtrado: true,
-        diaSeleccionado: "Todos"
+        diaSeleccionado: "Ninguno"
     }
     getData = async () => {
         const chart = this.chart;
@@ -35,7 +35,7 @@ export class Chart extends Component {
         }
         this.setState({
             dataPoints: dataPoints,
-            dataPointsFilter: dataPoints
+            // dataPointsFilter: dataPoints
         })
         chart.render();
     }
@@ -104,7 +104,7 @@ export class Chart extends Component {
                     const { ye, mo, da } = this.formatFecha(dia * 86400000 + 10800000);
 
                     return (
-                        <div>
+                        <div key={dia}>
                             <button onClick={() => { this.filtrar(dia) }}>Seleccionar {da} de {mo} del {ye}</button>
                             <br />
                             <br />

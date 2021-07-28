@@ -15,7 +15,6 @@ const SetToken = ({ location }) => {
             return;
         }
         localStorage.setItem("refreshToken", token)
-        localStorage.setItem("rtExpires", expires)
         setVariant('success');
         setMessage('Logueado! Redirigiendo');
         getAccessToken();
