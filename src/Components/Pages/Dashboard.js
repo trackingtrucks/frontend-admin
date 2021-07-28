@@ -12,7 +12,7 @@ import SettingsContainers from '../Settings/SettingsContainer';
 function Dashboard() {
   const { saveLocalStorage } = useContext(AuthContext);
   // const [key, setKey] = useState('forms');
-  const [key, setKey] = useState('chart');
+  const [key, setKey] = useState('forms');
 
   useEffect(() => {
     saveLocalStorage();
