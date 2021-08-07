@@ -8,7 +8,7 @@ function AuthContextProvider(props) {
     const [refreshToken, setRefreshToken] = useState(localStorage.getItem('refreshToken') || '');
     const [accessToken, setAccessToken] = useState('')
     const [ATExpire, setATExpire] = useState(null)
-    const [RTExpire, setRTExpire] = useState(null);
+    // const [RTExpire, setRTExpire] = useState(null);
     const [perfil, setPerfil] = useState(JSON.parse(localStorage.getItem('perfil')) || null);
 
     async function saveLocalStorage() {
@@ -23,7 +23,7 @@ function AuthContextProvider(props) {
             LoggedIn: false,
             refreshToken: '',
             ATExpire: null,
-            RTExpire: null,
+            // RTExpire: null,
             profile: null
         })
     }
@@ -33,7 +33,7 @@ function AuthContextProvider(props) {
         if (accessToken) { setAccessToken(accessToken) }
         if (refreshToken) { setRefreshToken(refreshToken) }
         if (ATExpire) { setATExpire(ATExpire) }
-        if (RTExpire) { setRTExpire(RTExpire) }
+        // if (RTExpire) { setRTExpire(RTExpire) }
         if (LoggedIn) { setLoggedIn(LoggedIn) }
     }
     function get(string) {
@@ -57,7 +57,7 @@ function AuthContextProvider(props) {
                 // console.info(data);
                 setAccessToken(data.accessToken);
                 setATExpire(data.ATExpiresIn)
-                setRTExpire(data.RTExpiresIn)
+                // setRTExpire(data.RTExpiresIn)
                 setLoggedIn(true);
             } else {
                 if (localStorage.getItem('refreshToken')) {
@@ -81,7 +81,7 @@ function AuthContextProvider(props) {
             getAccessToken();
         }, falta - 15000);
         // eslint-disable-next-line
-    }, [ATExpire, RTExpire]);
+    }, [ATExpire]);
 
     useEffect(() => {
         getAccessToken();
