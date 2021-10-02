@@ -40,10 +40,11 @@ export const cerrarSesion = async ({ accessToken, refreshToken }) => {
     })
 }
 
-export const aceptarFormulario = async ({ companyId, id, accessToken }) => {
+export const aceptarFormulario = async ({ companyId, id, accessToken, nombre }) => {
     const response = await API.post(`/admin/formulario/aceptar`, {
         id,
-        companyId
+        companyId,
+        nombre
     }, {
         headers: {
             "x-access-token": accessToken

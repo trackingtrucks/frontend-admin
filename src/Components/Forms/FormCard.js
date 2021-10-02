@@ -8,6 +8,7 @@ function FormsList({ form, accessToken, api, getForms }) {
     const [showBorrar, setShowBorrar] = useState(false);
     const [disabled, setDisabled] = useState(false);
     const [companyId, setCompanyId] = useState('');
+    const [nombre, setNombre] = useState('');
 
     const handleClose = () => { setShow(false); setShowBorrar(false); }
     const handleShow = () => { setShow(true); }
@@ -15,7 +16,7 @@ function FormsList({ form, accessToken, api, getForms }) {
         e.preventDefault();
         setDisabled(true);
         try {
-            await api.aceptarFormulario({ companyId, id: form._id, accessToken })
+            await api.aceptarFormulario({ nombre, companyId, id: form._id, accessToken })
             await getForms();
             setDisabled(false)
             handleClose();
@@ -73,11 +74,19 @@ function FormsList({ form, accessToken, api, getForms }) {
                 {/* <Modal.Body>Ingresa un companyId para esta empresa</Modal.Body> */}
                 <Form onSubmit={submit}>
                     <Form.Group as={Row} className="m-3" controlId="companyId">
-                        <Form.Label column sm="8">
+                        <Form.Label column sm="7">
                             Ingresa un companyId para esta empresa
                         </Form.Label>
-                        <Col sm="4">
-                            <Form.Control type="text" placeholder="companyId" onChange={(e) => setCompanyId(e.target.value)} value={companyId} />
+                        <Col sm="5">
+                            <Form.Control type="text" placeholder="meli" onChange={(e) => setCompanyId(e.target.value)} value={companyId} />
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="m-3" controlId="nombre">
+                        <Form.Label column sm="7">
+                            Nombre de empresa
+                        </Form.Label>
+                        <Col sm="5">
+                            <Form.Control type="text" placeholder="Mercado Libre" onChange={(e) => setNombre(e.target.value)} value={nombre} />
                         </Col>
                     </Form.Group>
                 </Form>
